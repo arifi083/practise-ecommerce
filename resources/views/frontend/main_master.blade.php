@@ -33,6 +33,8 @@
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+<script src="https://js.stripe.com/v3/"></script>
+
 
 </head>
 <body class="cnt-home">
@@ -731,9 +733,11 @@ function addToCart(){
               
               success:function(data){
 
-                couponCalculation(); 
-                $('#couponField').hide();
-
+                couponCalculation();
+                if(data.validity == true){
+                   $('#couponField').hide();
+                }
+                
                   // Start Message 
                 const Toast = Swal.mixin({
                       toast: true,
