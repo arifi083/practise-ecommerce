@@ -70,7 +70,7 @@
                      </tbody>
                  </table>
               </div>
-          </div>
+          </div>  <!-- end col-md-8 --> 
 
 
 
