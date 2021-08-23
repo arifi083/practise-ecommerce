@@ -18,7 +18,7 @@ class StripeController extends Controller
 
 
     	if (Session::has('coupon')) {
-    		$total_amount = Session::get('coupon')['total_amount'];
+    		$total_amount = Session::get('coupon')['total_amount']; 
     	}else{
     		$total_amount = round(Cart::total());
     	}
@@ -26,18 +26,13 @@ class StripeController extends Controller
 	\Stripe\Stripe::setApiKey('sk_test_51JQUHUSGWzyo7LZL3GC5wZEBARKCXZSuEJ2uwZxPBgAysw2bjxFHoVgktuS65ZwzC4hSvYInODiJJBRrvsNMAW3m00cxCsg3op');
 
 	$token = $_POST['stripeToken'];
-    $customer = \Stripe\Customer::create([
-        
-      'name' => 'Jenny Rosen',
-      'address' => [
-         'line1' => '510 Townsend St',
-         'postal_code' => '98140',
-         'city' => 'San Francisco',
-         'state' => 'CA',
-         'country' => 'US',
-       ],
-    ]); 
-    dd($customer);
+	$charge = \Stripe\Charge::create([
+	  'amount' => $total_amount*100,
+	  'currency' => 'usd',
+	  'description' => 'Easy Online Store',
+	  'source' => $token,
+	  'metadata' => ['order_id' => uniqid()],
+	]);
 	
     
 
